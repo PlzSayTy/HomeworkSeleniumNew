@@ -28,17 +28,22 @@ public class SecondScenarioTest {
         Wait<WebDriver> wait = new WebDriverWait(driver, 5, 1000);
         driver.get(baseUrl);
         driver.findElement(By.xpath("//a[contains(@class, 'hd-ft-region')]")).click();
-        driver.findElement(By.xpath("//div[contains(@class, 'kit-grid-modal__window')]//div[contains(@class, 'kit-input')]//child::input[contains(@class, 'kit-input__control')]")).sendKeys("Íèæåãîðîäñêàÿ îáëàñòü");
+        driver.findElement(By.xpath("//div[contains(@class, 'kit-grid-modal__window')]//div[contains(@class, 'kit-input')]//child::input[contains(@class, 'kit-input__control')]")).sendKeys("ÐÐ¸Ð¶ÐµÐ³Ð¾Ñ€Ð¾Ð´ÑÐºÐ°Ñ Ð¾Ð±Ð»Ð°ÑÑ‚ÑŒ");
         driver.findElement(By.xpath("//div[contains(@class, 'kit-grid-modal__window')]//div[contains(@class, 'kit-input')]//child::input[contains(@class, 'kit-input__control')]")).sendKeys("\n");
-        Assert.assertTrue(driver.findElement(By.xpath("//a[contains(@class, 'hd-ft-region')]")).getText().equals("Íèæåãîðîäñêàÿ îáëàñòü"));
+        Assert.assertTrue(driver.findElement(By.xpath("//a[contains(@class, 'hd-ft-region')]")).getText().equals("ÐÐ¸Ð¶ÐµÐ³Ð¾Ñ€Ð¾Ð´ÑÐºÐ°Ñ Ð¾Ð±Ð»Ð°ÑÑ‚ÑŒ"));
         JavascriptExecutor js = (JavascriptExecutor)driver;
         js.executeScript("arguments[0].scrollIntoView(true)", driver.findElement(By.xpath("//ul" +
                 "[contains(@class, 'footer__social')]")));
-        try {
-            Thread.sleep(10000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        System.out.println(driver.findElement(By.xpath("//ul" +
+                "[contains(@class, 'footer__social')]")).getAttribute("value"));
+        Assertions.assertAll("Ð˜ÐºÐ¾Ð½ÐºÐ° Ð¸ÑÑ‡ÐµÐ·Ð»Ð°", (Executable) () ->{
+            Assert.assertTrue(driver.findElement(By.xpath("//div[contains(@class, 'footer')]//span[contains(@class, 'footer__social_logo footer__social_fb')]")).isDisplayed());
+            Assert.assertTrue(driver.findElement(By.xpath("//div[contains(@class, 'footer')]//span[contains(@class, 'footer__social_logo footer__social_tw')]")).isDisplayed());
+            Assert.assertTrue(driver.findElement(By.xpath("//div[contains(@class, 'footer')]//span[contains(@class, 'footer__social_logo footer__social_yt')]")).isDisplayed());
+            Assert.assertTrue(driver.findElement(By.xpath("//div[contains(@class, 'footer')]//span[contains(@class, 'footer__social_logo footer__social_ins')]")).isDisplayed());
+            Assert.assertTrue(driver.findElement(By.xpath("//div[contains(@class, 'footer')]//span[contains(@class, 'footer__social_logo footer__social_vk')]")).isDisplayed());
+            Assert.assertTrue(driver.findElement(By.xpath("//div[contains(@class, 'footer')]//span[contains(@class, 'footer__social_logo footer__social_ok')]")).isDisplayed());
+        });
     }
     @After
     public void afterTest(){
